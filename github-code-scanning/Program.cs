@@ -25,7 +25,7 @@ app.MapGet("/vulnerable-endpoint", (string[] items, ILoggerFactory loggerFactory
 {
     var logger = loggerFactory.CreateLogger("endpoint");
 
-    logger.Log(LogLevel.Information, "Calling with items: {}", items);
+    logger.Log(LogLevel.Information, "Calling with items: {}", items.Select(x => x.ReplaceLineEndings(string.Empty)));
 });
 app.MapGet("/weatherforecast", () =>
     {
