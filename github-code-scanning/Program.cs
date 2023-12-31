@@ -21,6 +21,12 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
+app.MapGet("/vulnerable-endpoint", (string[] items, ILoggerFactory loggerFactory) =>
+{
+    var logger = loggerFactory.CreateLogger("endpoint");
+
+    logger.Log(LogLevel.Information, "Calling with items: {}", items.Select(x => x.ReplaceLineEndings(string.Empty)));
+});
 app.MapGet("/weatherforecast", () =>
     {
         var forecast = Enumerable.Range(1, 5).Select(index =>
